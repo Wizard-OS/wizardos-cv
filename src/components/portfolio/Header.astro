@@ -1,0 +1,57 @@
+---
+import { Icon } from 'astro-icon/components';
+import { copy, type Language } from '~/data/portfolio';
+interface Props {
+  lang: Language;
+  alternate?: string;
+}
+const { lang, alternate } = Astro.props;
+const t = copy[lang];
+const other = lang === 'en' ? 'es' : 'en';
+const switchPath = alternate ?? Astro.url.pathname.replace(/^\/(en|es)(?=\/|$)/, '/' + other);
+const destinations = ['work', 'about', 'services', 'experience', 'journal'];
+---
+
+<header class="site-header">
+  <a
+    href={`/${lang}/`}
+    class="brand"
+    aria-label={lang === 'en' ? 'Osvaldo Cintra García — Home' : 'Osvaldo Cintra García — Inicio'}
+  >
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"
+      ><path d="m16 3 11 6.5v13L16 29 5 22.5v-13Z" stroke="currentColor" stroke-width="2.5"></path><path
+        d="m12 11 7 5-7 5"
+        stroke="currentColor"
+        stroke-width="2"></path></svg
+    >
+    <span>Osvaldo<span class="brand-dot">.</span></span>
+  </a>
+  <nav id="portfolio-nav" class="navigation" aria-label={lang === 'en' ? 'Main navigation' : 'Navegación principal'}>
+    {t.nav.map((label, i) => <a href={`/${lang}/#${destinations[i]}`}>{label}</a>)}
+  </nav>
+  <div class="header-actions">
+    <a
+      href={switchPath}
+      class="language-switch"
+      lang={other}
+      hreflang={other}
+      aria-label={other === 'es' ? 'Cambiar a español' : 'Switch to English'}
+      ><span class:list={{ active: lang === 'en' }}>EN</span><span class="language-divider">/</span><span
+        class:list={{ active: lang === 'es' }}>ES</span
+      ></a
+    >
+    <a href={`/${lang}/#contact`} class="header-contact"
+      >{t.contact}<Icon name="tabler:arrow-up-right" aria-hidden="true" /></a
+    >
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-controls="portfolio-nav"
+      aria-expanded="false"
+      aria-label={t.menu}
+      data-menu-toggle
+      data-open-label={t.menu}
+      data-close-label={t.close}><Icon name="tabler:menu-2" aria-hidden="true" /></button
+    >
+  </div>
+</header>

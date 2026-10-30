@@ -1,0 +1,44 @@
+---
+import { Icon } from 'astro-icon/components';
+import { copy, profile, type Language } from '~/data/portfolio';
+interface Props {
+  lang: Language;
+}
+const { lang } = Astro.props;
+const t = copy[lang];
+---
+
+<footer id="contact" class="contact-section">
+  <div class="footer-glow" aria-hidden="true"></div>
+  <div class="container contact-content">
+    <p class="eyebrow light"><span class="status-dot"></span>{t.contactLabel}</p>
+    <div class="contact-heading-row">
+      <h2 class="contact-title" data-reveal>{t.contactTitle.split('\n').map((line) => <span>{line}</span>)}</h2>
+      <a class="contact-orb" href={`mailto:${profile.email}`} aria-label={t.contact}
+        ><Icon name="tabler:arrow-up-right" aria-hidden="true" /></a
+      >
+    </div>
+    <div class="contact-bottom">
+      <p>{t.contactText}</p>
+      <div class="email-group">
+        <span>{t.emailLabel}</span><a class="email-link" href={`mailto:${profile.email}`}>{profile.email}</a>
+        <button type="button" class="copy-email" data-copy-email data-success={t.copied} data-failure={t.copyFailed}
+          ><Icon name="tabler:copy" aria-hidden="true" /><span>{t.copyEmail}</span></button
+        >
+        <span class="copy-status" aria-live="polite" role="status"></span>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <a href={`/${lang}/`} class="footer-name">Osvaldo Cintra García<span>© {new Date().getUTCFullYear()}</span></a>
+      <span class="footer-credit">{t.footer}</span>
+      <div class="social-links">
+        <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+          ><Icon name="tabler:brand-linkedin" aria-hidden="true" /></a
+        ><a href={profile.cv} download aria-label={t.download} data-astro-reload
+          ><Icon name="tabler:file-cv" aria-hidden="true" /></a
+        ><a href={`mailto:${profile.email}`} aria-label={t.emailLabel}><Icon name="tabler:mail" aria-hidden="true" /></a
+        >
+      </div>
+    </div>
+  </div>
+</footer>

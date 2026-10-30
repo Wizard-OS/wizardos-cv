@@ -1,0 +1,60 @@
+---
+import { Icon } from 'astro-icon/components';
+import Layout from '~/layouts/PortfolioLayout.astro';
+import ProjectArt from '~/components/portfolio/ProjectArt.astro';
+import { copy, languages, projects, type Language, type Project } from '~/data/portfolio';
+export function getStaticPaths() {
+  return languages.flatMap((lang) =>
+    projects.map((project) => ({ params: { lang, slug: project.slug }, props: { project } }))
+  );
+}
+export interface Props {
+  project: Project;
+}
+const { project } = Astro.props;
+const lang = Astro.params.lang as Language;
+const t = copy[lang];
+const content = project[lang];
+const next = projects[(projects.findIndex((p) => p.slug === project.slug) + 1) % projects.length];
+---
+
+<Layout
+  lang={lang}
+  title={project.name + ' — ' + t.caseLabel + ' — Osvaldo Cintra García'}
+  description={content.summary}
+>
+  <section class="detail-hero container">
+    <a href={`/${lang}/#work`} class="text-link light"
+      ><Icon name="tabler:arrow-left" aria-hidden="true" />{t.backWork}</a
+    >
+    <p class="eyebrow light">{content.category} / {project.company}</p>
+    <h1 data-hero>{content.title.split('\n').map((line) => <span>{line}</span>)}</h1>
+    <div class="case-meta">
+      <span>{project.name}</span><span>{content.role}</span><span
+        >{project.period}{project.slug === 'smart-cities' ? ' ' + t.present : ''}</span
+      >
+    </div>
+  </section>
+  <div class="light-shell detail-shell">
+    <figure class="case-visual container">
+      <ProjectArt kind={project.kind} id={'case-' + project.slug} /><figcaption>{t.concept}</figcaption>
+    </figure>
+    <section class="case-content section container">
+      <div class="case-sidebar">
+        <p class="eyebrow">{t.caseLabel}</p><h2>{project.name}</h2><h3>{t.stack}</h3><div class="skill-tags">
+          {project.stack.map((item) => <span>{item}</span>)}
+        </div>
+      </div>
+      <div class="case-body">
+        <h2>{t.overview}</h2><p class="case-lead">{content.context}</p><h2>{t.contribution}</h2><ul>
+          {content.contributions.map((item) => <li>{item}</li>)}
+        </ul><p class="case-note"><Icon name="tabler:info-circle" aria-hidden="true" />{t.sourceNote}</p>
+      </div>
+    </section>
+    <div class="next-project container">
+      <span>{t.next}</span><a href={`/${lang}/work/${next.slug}/`}
+        >{next.name}<Icon name="tabler:arrow-up-right" aria-hidden="true" /></a
+      >
+    </div>
+  </div>
+</Layout>

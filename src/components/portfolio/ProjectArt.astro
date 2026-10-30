@@ -1,0 +1,240 @@
+---
+interface Props {
+  kind: string;
+  id: string;
+}
+const { kind, id } = Astro.props;
+---
+
+<div class:list={['project-art', `art-${kind}`]} aria-hidden="true">
+  <svg viewBox="0 0 700 500" fill="none" class="art-svg">
+    <defs>
+      <pattern id={`grid-${id}`} width="38" height="38" patternUnits="userSpaceOnUse"
+        ><path d="M38 0H0V38" stroke="#9aaea3" stroke-opacity=".25"></path></pattern
+      >
+      <linearGradient id={`glow-${id}`} x1="120" y1="400" x2="550" y2="80" gradientUnits="userSpaceOnUse"
+        ><stop stop-color="#7eff9a"></stop><stop offset="1" stop-color="#245f4a"></stop></linearGradient
+      >
+      <linearGradient id={`orange-${id}`} x1="180" y1="70" x2="500" y2="450" gradientUnits="userSpaceOnUse"
+        ><stop stop-color="#ffce98"></stop><stop offset=".6" stop-color="#ff7b43"></stop><stop
+          offset="1"
+          stop-color="#913a22"></stop></linearGradient
+      >
+    </defs>
+    {
+      kind === 'geo' && (
+        <>
+          <rect width="700" height="500" fill="#d3dfd8" />
+          <circle cx="595" cy="55" r="220" fill="#bccfc1" opacity=".6" />
+          <g transform="translate(48 45) rotate(-7 300 200)">
+            <rect width="610" height="408" rx="13" fill="#f6f8f5" stroke="#ffffff" stroke-width="3" />
+            <rect x="0" y="0" width="610" height="35" rx="13" fill="#fff" />
+            <>
+              <circle cx="16" cy="17" r="3" fill="#c3cec8" />
+              <circle cx="27" cy="17" r="3" fill="#c3cec8" />
+              <circle cx="38" cy="17" r="3" fill="#c3cec8" />
+            </>
+            <rect x="219" y="10" width="170" height="14" rx="5" fill="#edf1ee" />
+            <>
+              <rect y="35" width="119" height="373" fill="#112b21" />
+              <path d="m23 60 8-5 8 5v10l-8 5-8-5Z" stroke="#9bffad" stroke-width="2" />
+            </>
+            <text x="48" y="68" fill="#e9f4ec" font-size="11" font-family="sans-serif">
+              spatial
+            </text>
+            <rect x="12" y="102" width="96" height="27" rx="5" fill="#2c4b3a" />
+            {[0, 1, 2, 3, 4].map((i) => (
+              <>
+                <rect x="23" y={112 + i * 37} width="8" height="8" rx="2" fill={i === 0 ? '#a8f8af' : '#789285'} />
+                <rect x="41" y={113 + i * 37} width={i % 2 ? 44 : 53} height="5" rx="2" fill="#a7b8ad" />
+              </>
+            ))}
+            <rect x="132" y="48" width="464" height="347" rx="5" fill="#e8eee5" />
+            <rect x="132" y="48" width="464" height="347" fill={`url(#grid-${id})`} />
+            <path d="M159 395 241 323 218 262 320 202 370 221 458 125 502 105 564 48" stroke="#fff" stroke-width="23" />
+            <path
+              d="m132 147 104 18 61-33 75 102 122 66 102-19M149 348l100-26 77 24 100-22 43 71"
+              stroke="#fff"
+              stroke-width="15"
+            />
+            <path
+              d="M241 323 218 262 320 202 370 221 458 125"
+              stroke="#288456"
+              stroke-width="4"
+              stroke-dasharray="7 5"
+            />
+            {[
+              [241, 323],
+              [320, 202],
+              [370, 221],
+              [458, 125],
+            ].map(([x, y]) => (
+              <>
+                <circle cx={x} cy={y} r="15" fill="#3e9f66" fill-opacity=".15" />
+                <circle cx={x} cy={y} r="7" fill="#1d7047" stroke="#fff" stroke-width="3" />
+              </>
+            ))}
+            <>
+              <rect x="146" y="61" width="168" height="31" rx="5" fill="#fff" />
+              <circle cx="161" cy="77" r="4" stroke="#708076" stroke-width="2" />
+              <text x="174" y="80" fill="#58695d" font-size="9" font-family="sans-serif">
+                Explore urban assets
+              </text>
+            </>
+            <rect x="421" y="288" width="159" height="91" rx="8" fill="#fff" />
+            <text x="434" y="309" fill="#647067" font-size="9" font-family="sans-serif">
+              Connected information
+            </text>
+            <>
+              <rect x="434" y="323" width="52" height="39" rx="4" fill="#e2eddd" />
+              <path d="m440 352 12-14 10 7 17-17" stroke="#4e7c5c" stroke-width="2" />
+            </>
+            <>
+              <rect x="497" y="326" width="66" height="5" rx="2" fill="#cad8cd" />
+              <rect x="497" y="338" width="44" height="4" rx="2" fill="#e3e9e4" />
+              <rect x="497" y="350" width="52" height="4" rx="2" fill="#e3e9e4" />
+            </>
+          </g>
+        </>
+      )
+    }
+    {
+      kind === 'payment' && (
+        <>
+          <rect width="700" height="500" fill="#e6e6d6" />
+          <circle cx="70" cy="415" r="265" fill="#dbddc4" />
+          <g transform="translate(43 70) rotate(-7 300 200)">
+            <rect width="545" height="355" rx="14" fill="#fafbf5" stroke="#fff" stroke-width="3" />
+            <>
+              <rect width="545" height="30" rx="14" fill="#fff" />
+              <circle cx="16" cy="15" r="3" fill="#ccd2c4" />
+              <circle cx="27" cy="15" r="3" fill="#ccd2c4" />
+              <circle cx="38" cy="15" r="3" fill="#ccd2c4" />
+            </>
+            <>
+              <rect y="30" width="99" height="325" fill="#f0f2e8" />
+              <text x="18" y="60" fill="#233226" font-family="sans-serif" font-weight="700" font-size="16">
+                pay<tspan fill="#6f813a">.</tspan>
+              </text>
+            </>
+            {[0, 1, 2, 3].map((i) => (
+              <rect x="18" y={96 + i * 33} width={i % 2 ? 52 : 64} height="5" rx="2" fill="#aab29e" />
+            ))}
+            <text x="121" y="67" fill="#223425" font-family="sans-serif" font-size="17" font-weight="600">
+              A clearer overview.
+            </text>
+            <rect x="121" y="88" width="246" height="115" rx="9" fill="#d5ed9c" />
+            <text x="138" y="111" fill="#485832" font-size="9" font-family="sans-serif">
+              Everything in one place
+            </text>
+            <path d="m137 177 34-22 27 11 35-34 34 6 30-23 48 13" stroke="#3e6229" stroke-width="3" />
+            <rect x="121" y="220" width="392" height="105" rx="9" fill="white" />
+            {[0, 1, 2].map((i) => (
+              <>
+                <circle cx="142" cy={239 + i * 32} r="7" fill="#e2eacb" />
+                <rect x="159" y={236 + i * 32} width="108" height="5" rx="2" fill="#c5cdbd" />
+                <rect x="364" y={233 + i * 32} width="51" height="14" rx="7" fill="#edf2dd" />
+                <rect x="441" y={236 + i * 32} width="45" height="5" rx="2" fill="#b6c1a7" />
+              </>
+            ))}
+          </g>
+          <g transform="translate(446 115) rotate(9 80 140)">
+            <rect width="153" height="293" rx="24" fill="#1d2920" stroke="#46513a" stroke-width="3" />
+            <rect x="6" y="7" width="141" height="279" rx="20" fill="#fafbf4" />
+            <rect x="51" y="10" width="51" height="12" rx="6" fill="#1d2920" />
+            <text x="23" y="57" fill="#253a25" font-size="12" font-weight="600" font-family="sans-serif">
+              Simple by design.
+            </text>
+            <>
+              <rect x="18" y="74" width="117" height="78" rx="10" fill="#d5ed9c" />
+              <circle cx="43" cy="99" r="12" fill="#3e6229" />
+              <path d="m38 99 4 4 6-7" stroke="#e8f4c5" stroke-width="2" />
+            </>
+            <rect x="29" y="124" width="72" height="5" rx="2" fill="#789148" />
+            {[0, 1, 2].map((i) => (
+              <>
+                <rect x="18" y={171 + i * 28} width="23" height="20" rx="5" fill="#e7ebdc" />
+                <rect x="49" y={177 + i * 28} width="75" height="4" rx="2" fill="#b6c2a7" />
+              </>
+            ))}
+            <rect x="18" y="258" width="117" height="14" rx="7" fill="#2e492c" />
+          </g>
+        </>
+      )
+    }
+    {
+      kind === 'creative' && (
+        <>
+          <rect width="700" height="500" fill="#e2d7ce" />
+          <circle cx="630" cy="65" r="260" fill="#d6c8bc" />
+          <g transform="translate(53 48) rotate(-6 300 210)">
+            <rect width="590" height="403" rx="12" fill="#202020" stroke="#faf1e7" stroke-width="3" />
+            <rect width="590" height="29" rx="12" fill="#faf1e7" />
+            <>
+              <circle cx="16" cy="14" r="3" fill="#c1b6a9" />
+              <circle cx="27" cy="14" r="3" fill="#c1b6a9" />
+              <circle cx="38" cy="14" r="3" fill="#c1b6a9" />
+            </>
+            <text x="28" y="67" fill="#faf1e7" font-size="17" font-family="sans-serif" font-weight="700">
+              tropix<tspan fill="#ffa874">®</tspan>
+            </text>
+            <text x="428" y="63" fill="#bfb5ab" font-family="sans-serif" font-size="9">
+              Create. Produce. Connect.
+            </text>
+            <text
+              x="27"
+              y="138"
+              fill="#faf1e7"
+              font-size="56"
+              font-family="sans-serif"
+              font-weight="700"
+              letter-spacing="-3"
+            >
+              Made for
+            </text>
+            <text
+              x="27"
+              y="197"
+              fill="#faf1e7"
+              font-size="56"
+              font-family="sans-serif"
+              font-weight="700"
+              letter-spacing="-3"
+            >
+              what’s next.
+            </text>
+            <circle cx="450" cy="216" r="112" fill={`url(#orange-${id})`} />
+            {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+              <ellipse
+                cx="450"
+                cy="216"
+                rx={15 + i * 14}
+                ry="106"
+                transform={`rotate(${i * 10} 450 216)`}
+                stroke="#ffdfba"
+                stroke-opacity=".45"
+              />
+            ))}
+            <>
+              <rect x="28" y="236" width="155" height="4" rx="2" fill="#9b938c" />
+              <rect x="28" y="248" width="128" height="4" rx="2" fill="#9b938c" />
+            </>
+            <>
+              <rect x="28" y="280" width="105" height="29" rx="15" fill="#f4ebdf" />
+              <path d="M104 294h13m-5-5 5 5-5 5" stroke="#26221e" stroke-width="1.5" />
+            </>
+            <path d="M28 345H561" stroke="#52463f" />
+            <>
+              <text x="28" y="373" fill="#a69a8e" font-size="10" font-family="sans-serif">
+                MEDIA & ENTERTAINMENT
+              </text>
+              <text x="416" y="373" fill="#a69a8e" font-size="10" font-family="sans-serif">
+                IMAGINE MORE
+              </text>
+            </>
+          </g>
+        </>
+      )
+    }
+  </svg>
+</div>

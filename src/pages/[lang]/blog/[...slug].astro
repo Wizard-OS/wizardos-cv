@@ -1,0 +1,48 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import Layout from '~/layouts/PortfolioLayout.astro';
+import { copy, type Language } from '~/data/portfolio';
+export async function getStaticPaths() {
+  const posts = await getCollection('articles', ({ data }) => !data.draft && data.publishDate <= new Date());
+  return posts.map((post) => ({
+    params: { lang: post.data.lang, slug: post.id.replace(/^(en|es)\//, '') },
+    props: {
+      post,
+      translated: posts.find(
+        (p) => p.data.translationKey === post.data.translationKey && p.data.lang !== post.data.lang
+      ),
+    },
+  }));
+}
+export interface Props {
+  post: CollectionEntry<'articles'>;
+  translated?: CollectionEntry<'articles'>;
+}
+const { post, translated } = Astro.props;
+const lang = post.data.lang as Language;
+const t = copy[lang];
+const other = lang === 'en' ? 'es' : 'en';
+const alternate = translated ? `/${other}/blog/${translated.id.replace(/^(en|es)\//, '')}/` : `/${other}/blog/`;
+const { Content } = await render(post);
+---
+
+<Layout
+  lang={lang}
+  title={post.data.title + ' — Osvaldo Cintra García'}
+  description={post.data.excerpt}
+  alternate={alternate}
+  article
+  hasTranslation={Boolean(translated)}
+>
+  <section class="detail-hero container">
+    <a class="text-link light" href={`/${lang}/blog/`}
+      ><Icon name="tabler:arrow-left" aria-hidden="true" />{t.blogBack}</a
+    ><p class="eyebrow light">
+      <time datetime={post.data.publishDate.toISOString()}
+        >{post.data.publishDate.toLocaleDateString(lang, { dateStyle: 'long', timeZone: 'UTC' })}</time
+      >
+    </p><h1>{post.data.title}</h1>
+  </section>
+  <div class="light-shell"><article class="article-content container section prose prose-lg"><Content /></article></div>
+</Layout>

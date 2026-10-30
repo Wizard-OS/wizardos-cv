@@ -1,0 +1,93 @@
+---
+import '~/assets/styles/tailwind.css';
+import '~/assets/styles/portfolio.css';
+import { Font } from 'astro:assets';
+import { ClientRouter } from 'astro:transitions';
+import CustomStyles from '~/components/CustomStyles.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import Header from '~/components/portfolio/Header.astro';
+import Footer from '~/components/portfolio/Footer.astro';
+import { copy, profile, type Language } from '~/data/portfolio';
+interface Props {
+  lang: Language;
+  title?: string;
+  description?: string;
+  alternate?: string;
+  noindex?: boolean;
+  article?: boolean;
+  hasTranslation?: boolean;
+}
+const {
+  lang,
+  title = copy[lang].meta,
+  description = copy[lang].description,
+  alternate,
+  noindex = false,
+  article = false,
+  hasTranslation = true,
+} = Astro.props;
+const origin = Astro.site ?? Astro.url.origin;
+const canonical = new URL(Astro.url.pathname, origin);
+const alternatePath = alternate ?? Astro.url.pathname.replace(/^\/(en|es)(?=\/|$)/, lang === 'en' ? '/es' : '/en');
+const enPath = lang === 'en' ? Astro.url.pathname : alternatePath;
+const esPath = lang === 'es' ? Astro.url.pathname : alternatePath;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  jobTitle: 'Fullstack Developer',
+  url: new URL('/en/', origin).href,
+  email: profile.email,
+  sameAs: [profile.linkedin],
+  homeLocation: { '@type': 'Place', name: 'Montevideo, Uruguay' },
+  knowsLanguage: ['English', 'Spanish'],
+};
+---
+
+<!doctype html>
+<html lang={lang} dir="ltr">
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title><meta name="description" content={description} />
+    <meta name="theme-color" content="#050a08" /><meta name="color-scheme" content="light" />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
+    {(lang === 'en' || hasTranslation) && <link rel="alternate" hreflang="en" href={new URL(enPath, origin)} />}
+    {(lang === 'es' || hasTranslation) && <link rel="alternate" hreflang="es" href={new URL(esPath, origin)} />}
+    {hasTranslation && <link rel="alternate" hreflang="x-default" href={new URL(enPath, origin)} />}
+    <meta property="og:type" content={article ? 'article' : 'website'} /><meta
+      property="og:title"
+      content={title}
+    /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={profile.name} /><meta
+      property="og:locale"
+      content={lang === 'en' ? 'en_US' : 'es_UY'}
+    />
+    <meta property="og:image" content={new URL('/og.png', origin)} /><meta
+      property="og:image:width"
+      content="1200"
+    /><meta property="og:image:height" content="630" /><meta
+      property="og:image:alt"
+      content="Osvaldo Cintra García — Fullstack Developer"
+    />
+    <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={title} /><meta
+      name="twitter:description"
+      content={description}
+    /><meta name="twitter:image" content={new URL('/og.png', origin)} />
+    <Font cssVariable="--font-inter" preload /><Font cssVariable="--font-space" preload />
+    <CustomStyles /><StructuredData schema={schema} />
+    <ClientRouter fallback="swap" />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{copy[lang].skip}</a>
+    <div class="reading-progress" aria-hidden="true"></div>
+    <Header lang={lang} alternate={alternate} />
+    <main id="main"><slot /></main>
+    <Footer lang={lang} />
+    <script>
+      import '~/scripts/portfolio';
+    </script>
+  </body>
+</html>

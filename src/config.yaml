@@ -1,0 +1,35 @@
+site:
+  name: Osvaldo Cintra García
+  site: 'http://localhost:4321'
+  base: '/'
+  trailingSlash: true
+  googleSiteVerificationId: ''
+metadata:
+  title:
+    default: Osvaldo Cintra García
+    template: '%s — Osvaldo Cintra García'
+  description: 'Fullstack developer in Montevideo. Thoughtful interfaces, reliable backends, and UI/UX design.'
+  robots:
+    index: true
+    follow: true
+  openGraph:
+    site_name: Osvaldo Cintra García
+    images:
+      - url: '/og.png'
+        width: 1200
+        height: 630
+    type: website
+  twitter:
+    cardType: summary_large_image
+i18n:
+  language: en
+  textDirection: ltr
+apps:
+  blog:
+    isEnabled: false
+analytics:
+  vendors:
+    googleAnalytics:
+      id: null
+ui:
+  theme: 'light:only'

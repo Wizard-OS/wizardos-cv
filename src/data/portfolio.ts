@@ -1,0 +1,425 @@
+export type Language = 'en' | 'es';
+export const languages: Language[] = ['en', 'es'];
+export const profile = {
+  name: 'Osvaldo Cintra García',
+  email: 'wizardos2011@gmail.com',
+  linkedin: 'https://www.linkedin.com/in/osvaldo-cintra-garcia',
+  cv: '/documents/Osvaldo_Cintra_Garcia_CV.pdf',
+};
+export const copy = {
+  en: {
+    nav: ['Work', 'About', 'Services', 'Experience', 'Journal'],
+    contact: 'Let’s talk',
+    skip: 'Skip to content',
+    menu: 'Open navigation',
+    close: 'Close navigation',
+    location: 'Montevideo, Uruguay',
+    role: 'Fullstack developer & UI/UX thinker',
+    headline: ['Thoughtful interfaces.', 'Powerful systems.'],
+    intro:
+      'I’m Osvaldo. I bring design and engineering together to build web experiences that feel right and work beautifully.',
+    explore: 'Explore my work',
+    download: 'Download CV',
+    scroll: 'A little further, a lot more to discover',
+    disciplines: ['Fullstack development', 'UI/UX design', 'Backend architecture', 'Geospatial experiences'],
+    aboutLabel: 'The person behind the pixels',
+    aboutTitle: 'Good design meets\ngood engineering.',
+    about: [
+      'I’m a fullstack developer with a designer’s eye. From an interface’s smallest detail to the architecture behind it, I care about how the whole experience fits together.',
+      'My work spans React and Next.js interfaces, NestJS backends, and geospatial applications. At TDT Global, I contribute to Smart Cities, connecting maps, urban assets, and image-processing workflows.',
+      'I bring the same approach to every collaboration: understand the problem, make the complex feel simple, and build with care.',
+    ],
+    skills: 'My everyday toolkit',
+    workLabel: 'Selected work',
+    workTitle: 'Real challenges.\nThoughtful solutions.',
+    workIntro: 'A closer look at the products and experiences I’ve contributed to.',
+    caseLink: 'Explore the case',
+    concept: 'Conceptual illustration · not a product screenshot',
+    servicesLabel: 'What I can help with',
+    servicesTitle: 'From the first idea\nto the final detail.',
+    services: [
+      {
+        icon: 'tabler:layout',
+        title: 'Websites & web apps',
+        text: 'Responsive websites, product interfaces, and fullstack applications built around the people who use them.',
+        tags: 'Astro / React / Next.js',
+      },
+      {
+        icon: 'tabler:braces',
+        title: 'Backend & integrations',
+        text: 'APIs, data models, authentication, and background workflows that give your product a solid foundation.',
+        tags: 'NestJS / PostgreSQL / Redis',
+      },
+      {
+        icon: 'tabler:palette',
+        title: 'UI/UX & modernization',
+        text: 'Clear user journeys, reusable design systems, and thoughtful redesigns of interfaces that need a fresh start.',
+        tags: 'Figma / Design systems / UI',
+      },
+    ],
+    processLabel: 'How we’ll work',
+    processTitle: 'A clear process.\nA shared direction.',
+    steps: [
+      {
+        title: 'Discover',
+        text: 'We start with your goals, your users, and the problem worth solving. A shared understanding comes before a single pixel.',
+      },
+      {
+        title: 'Design',
+        text: 'We turn the brief into a clear structure and visual direction, exploring the details that make the experience yours.',
+      },
+      {
+        title: 'Develop',
+        text: 'I connect the interface and the systems behind it, building reusable components and testing the important interactions.',
+      },
+      {
+        title: 'Deliver',
+        text: 'We review the experience across devices, refine the details, and prepare a clear handoff for what comes next.',
+      },
+    ],
+    experienceLabel: 'The journey so far',
+    experienceTitle: 'Experience,\nput into practice.',
+    present: 'Present',
+    education: 'Computer Science Engineer',
+    university: 'University of Informatics Sciences · Havana, Cuba · 2011–2016',
+    journalLabel: 'Notes from the workbench',
+    journalTitle: 'Building things.\nSharing the thinking.',
+    journalText: 'A space for notes on interfaces, architecture, and the decisions behind the work.',
+    journalEmpty: 'The first article is still taking shape.',
+    journalSoon: 'Writing comes next. In the meantime, explore the work.',
+    journalLink: 'Visit the journal',
+    contactLabel: 'Have something in mind?',
+    contactTitle: 'Let’s build\nsomething good.',
+    contactText: 'A role, a project, or an interesting problem. I’d love to hear about it.',
+    emailLabel: 'Say hello',
+    copyEmail: 'Copy email',
+    copied: 'Email copied',
+    copyFailed: 'Select and copy the email above.',
+    footer: 'Designed with intention. Built with Astro.',
+    back: 'Back to home',
+    backWork: 'All work',
+    caseLabel: 'Selected contribution',
+    overview: 'The context',
+    contribution: 'My contribution',
+    stack: 'Tools & technologies',
+    next: 'Next case',
+    sourceNote:
+      'This overview is based on my professional experience. Visuals are conceptual illustrations; no proprietary product screens are reproduced.',
+    notFound: 'This page took a different route.',
+    notFoundText: 'Let’s get you back to something useful.',
+    blogBack: 'All articles',
+    meta: 'Osvaldo Cintra García — Fullstack Developer',
+    description:
+      'Fullstack developer in Montevideo. Thoughtful interfaces, reliable backends, and UI/UX design. Explore my work and get in touch.',
+  },
+  es: {
+    nav: ['Proyectos', 'Sobre mí', 'Servicios', 'Experiencia', 'Artículos'],
+    contact: 'Hablemos',
+    skip: 'Saltar al contenido',
+    menu: 'Abrir navegación',
+    close: 'Cerrar navegación',
+    location: 'Montevideo, Uruguay',
+    role: 'Desarrollo fullstack con mirada UI/UX',
+    headline: ['Interfaces con intención.', 'Sistemas con solidez.'],
+    intro:
+      'Soy Osvaldo. Combino diseño e ingeniería para crear experiencias web que se sienten bien y funcionan aún mejor.',
+    explore: 'Explorar proyectos',
+    download: 'Descargar CV',
+    scroll: 'Un poco más abajo, mucho por descubrir',
+    disciplines: ['Desarrollo fullstack', 'Diseño UI/UX', 'Arquitectura backend', 'Experiencias geoespaciales'],
+    aboutLabel: 'La persona detrás de los píxeles',
+    aboutTitle: 'Buen diseño y\nbuena ingeniería.',
+    about: [
+      'Soy desarrollador fullstack con mirada de diseñador. Desde el detalle más pequeño de una interfaz hasta su arquitectura, me importa cómo encaja toda la experiencia.',
+      'Trabajo con interfaces en React y Next.js, backends en NestJS y aplicaciones geoespaciales. En TDT Global contribuyo a Smart Cities, conectando mapas, activos urbanos y flujos de procesamiento de imágenes.',
+      'En cada colaboración busco lo mismo: entender el problema, hacer que lo complejo resulte sencillo y construir con cuidado.',
+    ],
+    skills: 'Mis herramientas de cada día',
+    workLabel: 'Trabajo seleccionado',
+    workTitle: 'Retos reales.\nSoluciones pensadas.',
+    workIntro: 'Una mirada a los productos y experiencias en los que he participado.',
+    caseLink: 'Explorar el caso',
+    concept: 'Ilustración conceptual · no es una captura del producto',
+    servicesLabel: 'En qué puedo ayudarte',
+    servicesTitle: 'De la primera idea\nal último detalle.',
+    services: [
+      {
+        icon: 'tabler:layout',
+        title: 'Sitios y aplicaciones web',
+        text: 'Sitios adaptables, interfaces de producto y aplicaciones fullstack diseñados alrededor de quienes los usan.',
+        tags: 'Astro / React / Next.js',
+      },
+      {
+        icon: 'tabler:braces',
+        title: 'Backend e integraciones',
+        text: 'APIs, modelos de datos, autenticación y procesos en segundo plano para darle una base sólida a tu producto.',
+        tags: 'NestJS / PostgreSQL / Redis',
+      },
+      {
+        icon: 'tabler:palette',
+        title: 'UI/UX y modernización',
+        text: 'Recorridos claros, sistemas de diseño reutilizables y rediseño de interfaces que necesitan una nueva etapa.',
+        tags: 'Figma / Sistemas de diseño / UI',
+      },
+    ],
+    processLabel: 'Cómo trabajaremos',
+    processTitle: 'Un proceso claro.\nUn rumbo compartido.',
+    steps: [
+      {
+        title: 'Descubrir',
+        text: 'Empezamos por tus objetivos, tus usuarios y el problema que vale la pena resolver. El entendimiento compartido viene antes del primer píxel.',
+      },
+      {
+        title: 'Diseñar',
+        text: 'Convertimos la idea en una estructura y dirección visual claras, explorando los detalles que le dan identidad a tu experiencia.',
+      },
+      {
+        title: 'Desarrollar',
+        text: 'Conecto la interfaz con los sistemas que la sostienen, construyendo componentes reutilizables y probando las interacciones importantes.',
+      },
+      {
+        title: 'Entregar',
+        text: 'Revisamos la experiencia en distintos dispositivos, afinamos los detalles y preparamos una entrega clara para la siguiente etapa.',
+      },
+    ],
+    experienceLabel: 'El camino recorrido',
+    experienceTitle: 'Experiencia\npuesta en práctica.',
+    present: 'Actualidad',
+    education: 'Ingeniero en Ciencias Informáticas',
+    university: 'Universidad de las Ciencias Informáticas · La Habana, Cuba · 2011–2016',
+    journalLabel: 'Notas desde el taller',
+    journalTitle: 'Construir y compartir\nlo aprendido.',
+    journalText: 'Un espacio para escribir sobre interfaces, arquitectura y las decisiones detrás del trabajo.',
+    journalEmpty: 'El primer artículo está tomando forma.',
+    journalSoon: 'La escritura viene después. Mientras tanto, explorá los proyectos.',
+    journalLink: 'Visitar los artículos',
+    contactLabel: '¿Tenés algo en mente?',
+    contactTitle: 'Construyamos\nalgo bueno.',
+    contactText: 'Una oportunidad, un proyecto o un problema interesante. Me gustaría conocerlo.',
+    emailLabel: 'Escribime',
+    copyEmail: 'Copiar correo',
+    copied: 'Correo copiado',
+    copyFailed: 'Seleccioná y copiá el correo de arriba.',
+    footer: 'Diseñado con intención. Construido con Astro.',
+    back: 'Volver al inicio',
+    backWork: 'Todos los proyectos',
+    caseLabel: 'Contribución seleccionada',
+    overview: 'El contexto',
+    contribution: 'Mi contribución',
+    stack: 'Herramientas y tecnologías',
+    next: 'Siguiente caso',
+    sourceNote:
+      'Este resumen se basa en mi experiencia profesional. Las imágenes son ilustraciones conceptuales; no se reproducen pantallas privadas de los productos.',
+    notFound: 'Esta página tomó otro camino.',
+    notFoundText: 'Volvamos a algo que te sirva.',
+    blogBack: 'Todos los artículos',
+    meta: 'Osvaldo Cintra García — Desarrollador Fullstack',
+    description:
+      'Desarrollador fullstack en Montevideo. Interfaces cuidadas, backends sólidos y diseño UI/UX. Conocé mi trabajo y contactame.',
+  },
+};
+export const toolkit = [
+  'TypeScript',
+  'React',
+  'Next.js',
+  'Astro',
+  'Tailwind CSS',
+  'NestJS',
+  'Prisma',
+  'PostgreSQL',
+  'Mapbox',
+  'Redis',
+  'AWS',
+  'Figma',
+  'Playwright',
+];
+export const projects = [
+  {
+    slug: 'smart-cities',
+    name: 'Smart Cities',
+    company: 'TDT Global',
+    kind: 'geo',
+    period: '2023 —',
+    stack: ['Next.js', 'NestJS', 'TypeScript', 'Prisma', 'PostgreSQL', 'Mapbox', 'BullMQ', 'Redis', 'AWS'],
+    en: {
+      category: 'Geospatial platform',
+      title: 'Making urban data\nmake sense.',
+      summary: 'Maps, urban assets, and imagery brought together in one connected experience.',
+      role: 'Fullstack Developer',
+      context:
+        'Smart Cities is a platform for managing geolocated urban assets, survey routes, and captured imagery. The work connects complex spatial information with interfaces that help people explore it.',
+      contributions: [
+        'Contribute to backend architecture and APIs with NestJS, Prisma, and PostgreSQL.',
+        'Build geospatial views, route and asset filters, search, and image previews with Next.js and Mapbox.',
+        'Work on Ultralytics image processing, anonymization workflows, and asynchronous queues with BullMQ and Redis.',
+        'Build reusable UI components and automated tests, and participate in AWS deployments.',
+      ],
+    },
+    es: {
+      category: 'Plataforma geoespacial',
+      title: 'Darle sentido\na los datos urbanos.',
+      summary: 'Mapas, activos urbanos e imágenes conectados en una misma experiencia.',
+      role: 'Desarrollador Fullstack',
+      context:
+        'Smart Cities es una plataforma para gestionar activos urbanos geolocalizados, rutas de relevamiento e imágenes capturadas. El trabajo conecta información espacial compleja con interfaces que permiten explorarla.',
+      contributions: [
+        'Contribuyo a la arquitectura backend y APIs con NestJS, Prisma y PostgreSQL.',
+        'Desarrollo vistas geoespaciales, filtros de rutas y activos, búsqueda y previsualización de imágenes con Next.js y Mapbox.',
+        'Participo en procesamiento de imágenes con Ultralytics, anonimización y colas asíncronas con BullMQ y Redis.',
+        'Construyo componentes reutilizables y pruebas automatizadas, y participo en despliegues en AWS.',
+      ],
+    },
+  },
+  {
+    slug: 'abitab',
+    name: 'Abitab',
+    company: 'Abitab',
+    kind: 'payment',
+    period: '2023',
+    stack: ['React', 'Figma', 'React Hooks', 'Responsive UI', 'Design systems'],
+    en: {
+      category: 'Payments & design systems',
+      title: 'Clarity in every\ninteraction.',
+      summary: 'Bringing consistency and care to the interface of a payment platform.',
+      role: 'Frontend Developer & UI/UX Designer',
+      context:
+        'Working with product managers and backend developers, I designed and developed interfaces for a payment platform, with a focus on clear interactions and consistent visual patterns.',
+      contributions: [
+        'Created a Figma design system with more than 50 components.',
+        'Built responsive React components and managed client state with React Hooks.',
+        'Refined the interface through user testing and iteration.',
+        'Worked on usability, consistency, and cross-browser behavior with the wider product team.',
+      ],
+    },
+    es: {
+      category: 'Pagos y sistemas de diseño',
+      title: 'Claridad en cada\ninteracción.',
+      summary: 'Consistencia y cuidado en las interfaces de una plataforma de pagos.',
+      role: 'Desarrollador Frontend y Diseñador UI/UX',
+      context:
+        'En colaboración con producto y backend, diseñé y desarrollé interfaces para una plataforma de pagos, con foco en interacciones claras y patrones visuales consistentes.',
+      contributions: [
+        'Creé un sistema de diseño en Figma con más de 50 componentes.',
+        'Desarrollé componentes adaptables en React y gestioné el estado con React Hooks.',
+        'Refiné la interfaz mediante pruebas con usuarios e iteración.',
+        'Trabajé en usabilidad, consistencia y comportamiento entre navegadores con el equipo de producto.',
+      ],
+    },
+  },
+  {
+    slug: 'tropix',
+    name: 'Tropix',
+    company: 'Tropix Media & Entertainment',
+    kind: 'creative',
+    period: '2019 — 2020',
+    stack: ['Angular', 'HTML5', 'CSS3', 'JavaScript', 'UI/UX', 'Lighthouse'],
+    en: {
+      category: 'Web experiences',
+      title: 'A digital stage\nfor creative work.',
+      summary: 'Responsive web experiences for media, production, and digitization.',
+      role: 'UI/UX Web Designer & Frontend Developer',
+      context:
+        'I led web design and frontend development for websites in the entertainment industry, including Tropix Media & Entertainment, Tropix Production Services, and Tropix Digitization Center.',
+      contributions: [
+        'Designed and developed websites for three areas of the Tropix business.',
+        'Created responsive, mobile-first interfaces with Angular, HTML, CSS, and JavaScript.',
+        'Worked on loading performance and accessibility with PageSpeed Insights and Lighthouse.',
+        'Established GitHub workflows to support team collaboration and version control.',
+      ],
+    },
+    es: {
+      category: 'Experiencias web',
+      title: 'Un escenario digital\npara la creatividad.',
+      summary: 'Experiencias web adaptables para medios, producción y digitalización.',
+      role: 'Diseñador UI/UX y Desarrollador Frontend',
+      context:
+        'Lideré el diseño web y desarrollo frontend de sitios de entretenimiento, incluyendo Tropix Media & Entertainment, Tropix Production Services y Tropix Digitization Center.',
+      contributions: [
+        'Diseñé y desarrollé sitios para tres áreas del negocio de Tropix.',
+        'Creé interfaces adaptables y orientadas a móviles con Angular, HTML, CSS y JavaScript.',
+        'Trabajé en rendimiento de carga y accesibilidad con PageSpeed Insights y Lighthouse.',
+        'Establecí flujos de trabajo con GitHub para colaboración y control de versiones.',
+      ],
+    },
+  },
+] as const;
+export type Project = (typeof projects)[number];
+export const experience = [
+  {
+    company: 'TDT Global',
+    dates: '10/2023 —',
+    current: true,
+    location: 'Montevideo, Uruguay',
+    en: {
+      role: 'Fullstack Developer',
+      description:
+        'Geospatial interfaces, backend architecture, image-processing workflows, and asynchronous systems for Smart Cities.',
+    },
+    es: {
+      role: 'Desarrollador Fullstack',
+      description:
+        'Interfaces geoespaciales, arquitectura backend, procesamiento de imágenes y sistemas asíncronos para Smart Cities.',
+    },
+  },
+  {
+    company: 'Abitab',
+    dates: '02/2023 — 09/2023',
+    current: false,
+    location: 'Montevideo, Uruguay',
+    en: {
+      role: 'Frontend Developer & UI/UX Designer',
+      description:
+        'Payment platform interfaces, a Figma design system with 50+ components, and responsive React development.',
+    },
+    es: {
+      role: 'Desarrollador Frontend y Diseñador UI/UX',
+      description:
+        'Interfaces de pagos, un sistema de diseño en Figma con más de 50 componentes y desarrollo adaptable con React.',
+    },
+  },
+  {
+    company: 'GoDjango',
+    dates: '08/2020 — 12/2022',
+    current: false,
+    location: 'Havana, Cuba',
+    en: {
+      role: 'Laravel Fullstack Developer',
+      description:
+        'Web applications and custom content management systems, authentication, and deployments in a LAMP environment.',
+    },
+    es: {
+      role: 'Desarrollador Fullstack Laravel',
+      description: 'Aplicaciones web y gestores de contenido a medida, autenticación y despliegues en un entorno LAMP.',
+    },
+  },
+  {
+    company: 'Tropix Media & Entertainment',
+    dates: '12/2019 — 07/2020',
+    current: false,
+    location: 'Havana, Cuba',
+    en: {
+      role: 'UI/UX Designer & Frontend Developer',
+      description: 'Web design and mobile-first Angular interfaces for media, production, and digitization websites.',
+    },
+    es: {
+      role: 'Diseñador UI/UX y Desarrollador Frontend',
+      description: 'Diseño web e interfaces Angular orientadas a móviles para medios, producción y digitalización.',
+    },
+  },
+  {
+    company: 'Internet Research and Development Center',
+    dates: '08/2016 — 07/2019',
+    current: false,
+    location: 'Havana, Cuba',
+    en: {
+      role: 'UI/UX Web Designer',
+      description:
+        'Websites for universities, government institutions, and organizations, from client requirements to frontend delivery.',
+    },
+    es: {
+      role: 'Diseñador Web UI/UX',
+      description:
+        'Sitios para universidades, instituciones y organizaciones, desde los requisitos del cliente hasta el desarrollo frontend.',
+    },
+  },
+];
