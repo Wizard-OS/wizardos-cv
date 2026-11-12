@@ -1,0 +1,51 @@
+---
+import { Icon } from 'astro-icon/components';
+import { copy, type Language } from '~/data/portfolio';
+import type { CollectionEntry } from 'astro:content';
+interface Props {
+  lang: Language;
+  posts: CollectionEntry<'articles'>[];
+}
+const { lang, posts } = Astro.props;
+const t = copy[lang];
+---
+
+<section id="journal" class="journal-section section">
+  <div class="container">
+    <div class="section-top">
+      <div class="section-heading">
+        <p class="eyebrow">{t.journalLabel}</p><h2 data-reveal>
+          {t.journalTitle.split('\n').map((line) => <span>{line}</span>)}
+        </h2>
+      </div><p class="section-description">{t.journalText}</p>
+    </div>
+    {
+      posts.length ? (
+        <div class="article-list">
+          {posts.map((post) => (
+            <a class="article-card" href={`/${lang}/blog/${post.id.replace(/^(en|es)\//, '')}/`}>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.excerpt}</p>
+              <Icon name="tabler:arrow-up-right" aria-hidden="true" />
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="journal-empty">
+          <div class="journal-symbol" aria-hidden="true">
+            <Icon name="tabler:code" />
+            <span class="writing-cursor" />
+          </div>
+          <div>
+            <h3>{t.journalEmpty}</h3>
+            <p>{t.journalSoon}</p>
+          </div>
+          <a class="text-link" href={`/${lang}/blog/`}>
+            {t.journalLink}
+            <Icon name="tabler:arrow-up-right" aria-hidden="true" />
+          </a>
+        </div>
+      )
+    }
+  </div>
+</section>

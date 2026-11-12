@@ -1,0 +1,78 @@
+---
+import { copy, type Language } from '~/data/portfolio';
+interface Props {
+  lang: Language;
+}
+const { lang } = Astro.props;
+const t = copy[lang];
+---
+
+<section class="process-section section container" id="process">
+  <div class="section-heading">
+    <p class="eyebrow">{t.processLabel}</p><h2 data-reveal>
+      {t.processTitle.split('\n').map((line) => <span>{line}</span>)}
+    </h2>
+  </div>
+  <div class="process-content" data-process>
+    <div class="process-tabs" aria-label={t.processLabel}>
+      {
+        t.steps.map((step, i) => (
+          <button id={'step-tab-' + i} type="button" data-step={i} aria-controls={'step-panel-' + i}>
+            <span>0{i + 1}</span>
+            {step.title}
+          </button>
+        ))
+      }
+    </div>
+    {
+      t.steps.map((step, i) => (
+        <div id={'step-panel-' + i} class="process-panel" data-step-panel={i} aria-labelledby={'step-tab-' + i}>
+          <h3>{step.title}</h3>
+          <p>{step.text}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  import { onPageLoad } from '~/scripts/page-lifecycle';
+  onPageLoad((signal) => {
+    document.querySelectorAll<HTMLElement>('[data-process]').forEach((process) => {
+      const tabs = [...process.querySelectorAll<HTMLButtonElement>('[data-step]')];
+      const panels = [...process.querySelectorAll<HTMLElement>('[data-step-panel]')];
+      process.querySelector('.process-tabs')?.setAttribute('role', 'tablist');
+      const activate = (index: number, focus = false) => {
+        tabs.forEach((tab, i) => {
+          tab.setAttribute('role', 'tab');
+          tab.setAttribute('aria-selected', String(i === index));
+          tab.tabIndex = i === index ? 0 : -1;
+        });
+        panels.forEach((panel, i) => {
+          panel.setAttribute('role', 'tabpanel');
+          panel.tabIndex = 0;
+          panel.hidden = i !== index;
+        });
+        if (focus) tabs[index].focus();
+      };
+      tabs.forEach((tab, i) => {
+        tab.addEventListener('click', () => activate(i), { signal });
+        tab.addEventListener(
+          'keydown',
+          (event) => {
+            let next: number;
+            if (event.key === 'ArrowRight') next = (i + 1) % tabs.length;
+            else if (event.key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
+            else if (event.key === 'Home') next = 0;
+            else if (event.key === 'End') next = tabs.length - 1;
+            else return;
+            event.preventDefault();
+            activate(next, true);
+          },
+          { signal }
+        );
+      });
+      activate(0);
+    });
+  });
+</script>

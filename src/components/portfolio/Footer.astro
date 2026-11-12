@@ -22,8 +22,12 @@ const t = copy[lang];
       <p>{t.contactText}</p>
       <div class="email-group">
         <span>{t.emailLabel}</span><a class="email-link" href={`mailto:${profile.email}`}>{profile.email}</a>
-        <button type="button" class="copy-email" data-copy-email data-success={t.copied} data-failure={t.copyFailed}
-          ><Icon name="tabler:copy" aria-hidden="true" /><span>{t.copyEmail}</span></button
+        <button
+          type="button"
+          class="copy-email"
+          data-copy-email={profile.email}
+          data-success={t.copied}
+          data-failure={t.copyFailed}><Icon name="tabler:copy" aria-hidden="true" /><span>{t.copyEmail}</span></button
         >
         <span class="copy-status" aria-live="polite" role="status"></span>
       </div>
@@ -42,3 +46,24 @@ const t = copy[lang];
     </div>
   </div>
 </footer>
+
+<script>
+  import { onPageLoad } from '~/scripts/page-lifecycle';
+  onPageLoad((signal) => {
+    document.querySelectorAll<HTMLButtonElement>('[data-copy-email]').forEach((button) => {
+      button.addEventListener(
+        'click',
+        async () => {
+          const status = button.parentElement?.querySelector<HTMLElement>('.copy-status');
+          try {
+            await navigator.clipboard.writeText(button.dataset.copyEmail ?? '');
+            if (status) status.textContent = button.dataset.success ?? '';
+          } catch {
+            if (status) status.textContent = button.dataset.failure ?? '';
+          }
+        },
+        { signal }
+      );
+    });
+  });
+</script>

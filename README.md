@@ -30,6 +30,14 @@ npm run preview
 
 Static output is in dist/. The GitHub repository is https://github.com/Wizard-OS/wizardos-cv.
 
+## Astro and Vite
+
+Astro uses Vite internally to process styles and browser scripts. The commands in this project run Astro, and no separate Vite app or development server is configured. Tailwind 4 integrates through the official @tailwindcss/vite plugin in astro.config.ts. Keep that plugin: it compiles the Tailwind stylesheet. AstroWind also uses a Vite virtual module to expose its YAML configuration.
+
+The homepage composes seven .astro section components inside PortfolioLayout's default slot. Their typed props and build-time frontmatter render static HTML; only interactive controls and animations ship browser JavaScript. Article selection and draft/date filtering remain in the page's build-time frontmatter.
+
+See [Astro components](https://docs.astro.build/en/basics/astro-components/) and [Tailwind support](https://docs.astro.build/en/guides/styling/#tailwind).
+
 ## Deploy to Vercel
 
 Import Wizard-OS/wizardos-cv in Vercel using the Astro framework preset. Build command: npm run build. Output directory: dist/. Install command: npm ci. Use Node.js 24.x.
@@ -42,7 +50,9 @@ For another host, copy .env.example to .env and set PUBLIC_SITE_URL to the real 
 
 - src/data/portfolio.ts: both languages, profile, contact, services, experience, and three project cases.
 - src/assets/styles/portfolio.css: layout, green palette, responsive styles, and accessible motion.
-- src/scripts/portfolio.ts: GSAP animations, page lifecycle cleanup, mobile navigation, process tabs, gallery controls, and email copy.
+- src/scripts/portfolio.ts: shared GSAP animations and reading progress, with cleanup during Astro navigation.
+- src/components/portfolio/: typed Astro section components; Header, Hero, Process, and Footer own their browser interactions.
+- src/scripts/page-lifecycle.ts: initializes component scripts on astro:page-load and disposes their listeners before DOM swaps.
 - src/components/portfolio/ProjectArt.astro: original conceptual SVG illustrations, not screenshots.
 - src/config.yaml: AstroWind defaults. PUBLIC_SITE_URL overrides its site origin.
 - public/documents/Osvaldo_Cintra_Garcia_CV.pdf: original English CV.

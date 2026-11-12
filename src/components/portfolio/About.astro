@@ -1,0 +1,28 @@
+---
+import { Icon } from 'astro-icon/components';
+import { copy, profile, toolkit, type Language } from '~/data/portfolio';
+interface Props {
+  lang: Language;
+}
+const { lang } = Astro.props;
+const t = copy[lang];
+---
+
+<section id="about" class="section container about-section">
+  <div class="section-heading">
+    <p class="eyebrow">{t.aboutLabel}</p><h2 data-reveal>
+      {t.aboutTitle.split('\n').map((line) => <span>{line}</span>)}
+    </h2>
+  </div>
+  <div class="about-copy" data-reveal>
+    {t.about.map((paragraph) => <p>{paragraph}</p>)}<a
+      class="text-link"
+      href={profile.linkedin}
+      target="_blank"
+      rel="noopener noreferrer">LinkedIn<Icon name="tabler:arrow-up-right" aria-hidden="true" /></a
+    >
+  </div>
+  <div class="toolkit">
+    <h3>{t.skills}</h3><div class="skill-tags">{toolkit.map((skill) => <span>{skill}</span>)}</div>
+  </div>
+</section>

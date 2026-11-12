@@ -41,5 +41,6 @@ export default defineConfig({
     astrowind({ config: './src/config.yaml' }),
   ],
   markdown: { shikiConfig: { theme: 'github-dark' } },
+  // Astro uses Vite internally; this official plugin compiles Tailwind 4.
   vite: { plugins: [tailwindcss()], resolve: { alias: { '~': path.resolve(root, 'src') } } },
 });

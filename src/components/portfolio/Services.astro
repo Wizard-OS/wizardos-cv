@@ -1,0 +1,35 @@
+---
+import { Icon } from 'astro-icon/components';
+import { copy, profile, type Language } from '~/data/portfolio';
+interface Props {
+  lang: Language;
+}
+const { lang } = Astro.props;
+const t = copy[lang];
+---
+
+<section id="services" class="section container">
+  <div class="section-top">
+    <div class="section-heading">
+      <p class="eyebrow">{t.servicesLabel}</p><h2 data-reveal>
+        {t.servicesTitle.split('\n').map((line) => <span>{line}</span>)}
+      </h2>
+    </div><a href={`mailto:${profile.email}`} class="button button-outline"
+      >{t.contact}<Icon name="tabler:arrow-up-right" aria-hidden="true" /></a
+    >
+  </div>
+  <div class="services-grid">
+    {
+      t.services.map((service) => (
+        <article class="service-item" data-reveal>
+          <div class="service-icon">
+            <Icon name={service.icon} aria-hidden="true" />
+          </div>
+          <h3>{service.title}</h3>
+          <p>{service.text}</p>
+          <span class="service-tags">{service.tags}</span>
+        </article>
+      ))
+    }
+  </div>
+</section>

@@ -1,137 +1,12 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { profile } from '~/data/portfolio';
+import { onPageLoad } from './page-lifecycle';
 
 gsap.registerPlugin(ScrollTrigger);
-let cleanup: (() => void) | undefined;
 
-function initializePortfolio() {
-  cleanup?.();
-  const controller = new AbortController();
-  const { signal } = controller;
+onPageLoad((signal) => {
   const media = gsap.matchMedia();
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const header = document.querySelector<HTMLElement>('.site-header');
-  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
-  const nav = document.querySelector<HTMLElement>('#portfolio-nav');
-  const setMenu = (open: boolean) => {
-    nav?.classList.toggle('is-open', open);
-    toggle?.setAttribute('aria-expanded', String(open));
-    toggle?.setAttribute('aria-label', (open ? toggle.dataset.closeLabel : toggle.dataset.openLabel) ?? '');
-  };
-  header?.setAttribute('data-menu-ready', '');
-  toggle?.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'), { signal });
-  nav?.addEventListener(
-    'click',
-    (event) => {
-      if ((event.target as HTMLElement).closest('a')) setMenu(false);
-    },
-    { signal }
-  );
-  document.addEventListener(
-    'keydown',
-    (event) => {
-      if (event.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
-        setMenu(false);
-        toggle.focus();
-      }
-    },
-    { signal }
-  );
-  document.addEventListener(
-    'click',
-    (event) => {
-      if (header && !header.contains(event.target as Node)) setMenu(false);
-    },
-    { signal }
-  );
-
-  const gallery = document.querySelector<HTMLElement>('#hero-gallery');
-  document.querySelectorAll<HTMLButtonElement>('[data-gallery-direction]').forEach((button) => {
-    button.addEventListener(
-      'click',
-      () => {
-        const card = gallery?.querySelector<HTMLElement>('.hero-project');
-        gallery?.scrollBy({
-          left: Number(button.dataset.galleryDirection) * ((card?.offsetWidth ?? 350) + 20),
-          behavior: reduced.matches ? 'instant' : 'smooth',
-        });
-      },
-      { signal }
-    );
-  });
-  const syncGalleryControls = () => {
-    if (!gallery) return;
-    const max = gallery.scrollWidth - gallery.clientWidth;
-    document.querySelectorAll<HTMLButtonElement>('[data-gallery-direction]').forEach((button) => {
-      button.disabled =
-        Number(button.dataset.galleryDirection) < 0 ? gallery.scrollLeft <= 2 : gallery.scrollLeft >= max - 2;
-    });
-  };
-  gallery?.addEventListener('scroll', syncGalleryControls, { passive: true, signal });
-  window.addEventListener(
-    'resize',
-    () => {
-      syncGalleryControls();
-      if (window.innerWidth > 800) setMenu(false);
-    },
-    { signal, passive: true }
-  );
-  syncGalleryControls();
-
-  document.querySelectorAll<HTMLElement>('[data-process]').forEach((process) => {
-    const tabs = [...process.querySelectorAll<HTMLButtonElement>('[data-step]')];
-    const panels = [...process.querySelectorAll<HTMLElement>('[data-step-panel]')];
-    process.querySelector('.process-tabs')?.setAttribute('role', 'tablist');
-    const activate = (index: number, focus = false) => {
-      tabs.forEach((tab, i) => {
-        tab.setAttribute('role', 'tab');
-        tab.setAttribute('aria-selected', String(i === index));
-        tab.tabIndex = i === index ? 0 : -1;
-      });
-      panels.forEach((panel, i) => {
-        panel.setAttribute('role', 'tabpanel');
-        panel.tabIndex = 0;
-        panel.hidden = i !== index;
-      });
-      if (focus) tabs[index].focus();
-    };
-    tabs.forEach((tab, i) => {
-      tab.addEventListener('click', () => activate(i), { signal });
-      tab.addEventListener(
-        'keydown',
-        (event) => {
-          let next: number;
-          if (event.key === 'ArrowRight') next = (i + 1) % tabs.length;
-          else if (event.key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
-          else if (event.key === 'Home') next = 0;
-          else if (event.key === 'End') next = tabs.length - 1;
-          else return;
-          event.preventDefault();
-          activate(next, true);
-        },
-        { signal }
-      );
-    });
-    activate(0);
-  });
-
-  document.querySelectorAll<HTMLButtonElement>('[data-copy-email]').forEach((button) => {
-    button.addEventListener(
-      'click',
-      async () => {
-        const status = button.parentElement?.querySelector<HTMLElement>('.copy-status');
-        try {
-          await navigator.clipboard.writeText(profile.email);
-          if (status) status.textContent = button.dataset.success ?? '';
-        } catch {
-          if (status) status.textContent = button.dataset.failure ?? '';
-        }
-      },
-      { signal }
-    );
-  });
-
   let frame = 0;
   const updateProgress = () => {
     const max = document.documentElement.scrollHeight - window.innerHeight;
@@ -232,17 +107,10 @@ function initializePortfolio() {
   document.fonts.ready.then(() => {
     if (!signal.aborted) {
       ScrollTrigger.refresh();
-      syncGalleryControls();
     }
   });
-  cleanup = () => {
-    controller.abort();
+  return () => {
     cancelAnimationFrame(frame);
     media.revert();
   };
-}
-document.addEventListener('astro:page-load', initializePortfolio);
-document.addEventListener('astro:before-swap', () => {
-  cleanup?.();
-  cleanup = undefined;
 });

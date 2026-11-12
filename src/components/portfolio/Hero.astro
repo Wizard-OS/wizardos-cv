@@ -1,0 +1,129 @@
+---
+import { Icon } from 'astro-icon/components';
+import { copy, profile, projects, type Language } from '~/data/portfolio';
+import ProjectArt from './ProjectArt.astro';
+interface Props {
+  lang: Language;
+}
+const { lang } = Astro.props;
+const t = copy[lang];
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-glow" aria-hidden="true"></div><div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-copy container">
+    <p class="hero-kicker" data-hero><span class="status-dot"></span>{t.role}</p>
+    <h1 id="hero-title" class="hero-title" data-hero>{t.headline.map((line) => <span>{line}</span>)}</h1>
+    <p class="hero-intro" data-hero>{t.intro}</p>
+    <div class="hero-actions" data-hero>
+      <a class="button button-green" href="#work"
+        >{t.explore}<Icon name="tabler:arrow-down-right" aria-hidden="true" /></a
+      ><a href={profile.cv} download class="text-link light" data-astro-reload
+        >{t.download}<Icon name="tabler:download" aria-hidden="true" /></a
+      >
+    </div>
+  </div>
+  <div class="hero-gallery-wrap">
+    <div
+      class="hero-gallery"
+      id="hero-gallery"
+      tabindex="0"
+      role="region"
+      aria-label={lang === 'en' ? 'Featured projects' : 'Proyectos destacados'}
+    >
+      {
+        projects.map((project, i) => (
+          <figure class="hero-project" data-hero-card>
+            <a href={`/${lang}/work/${project.slug}/`} aria-label={project.name + ' — ' + t.caseLink}>
+              <ProjectArt kind={project.kind} id={'hero-' + project.slug} />
+              <div class="hero-project-overlay">
+                <div>
+                  <span>{project[lang].category}</span>
+                  <h2>{project.name}</h2>
+                </div>
+                <span class="circle-arrow">
+                  <Icon name="tabler:arrow-up-right" aria-hidden="true" />
+                </span>
+              </div>
+            </a>
+            <figcaption>
+              {t.concept}
+              <span>0{i + 1}</span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+    <div class="gallery-meta container">
+      <span><Icon name="tabler:map-pin" aria-hidden="true" />{t.location}</span><div class="gallery-controls">
+        <button
+          type="button"
+          data-gallery-direction="-1"
+          aria-controls="hero-gallery"
+          aria-label={lang === 'en' ? 'Previous project' : 'Proyecto anterior'}
+          ><Icon name="tabler:arrow-left" aria-hidden="true" /></button
+        ><button
+          type="button"
+          data-gallery-direction="1"
+          aria-controls="hero-gallery"
+          aria-label={lang === 'en' ? 'Next project' : 'Siguiente proyecto'}
+          ><Icon name="tabler:arrow-right" aria-hidden="true" /></button
+        >
+      </div>
+    </div>
+  </div>
+  <div class="discipline-strip container" aria-label={lang === 'en' ? 'Areas of expertise' : 'Especialidades'}>
+    {
+      t.disciplines.map((label) => (
+        <span>
+          <svg viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M10 1v18M1 10h18M4 4l12 12M4 16 16 4" stroke="currentColor" stroke-width="1.5" />
+          </svg>
+          {label}
+        </span>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  import { onPageLoad } from '~/scripts/page-lifecycle';
+  onPageLoad((signal) => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const gallery = document.querySelector<HTMLElement>('#hero-gallery');
+    document.querySelectorAll<HTMLButtonElement>('[data-gallery-direction]').forEach((button) => {
+      button.addEventListener(
+        'click',
+        () => {
+          const card = gallery?.querySelector<HTMLElement>('.hero-project');
+          gallery?.scrollBy({
+            left: Number(button.dataset.galleryDirection) * ((card?.offsetWidth ?? 350) + 20),
+            behavior: reduced.matches ? 'instant' : 'smooth',
+          });
+        },
+        { signal }
+      );
+    });
+    const syncGalleryControls = () => {
+      if (!gallery) return;
+      const max = gallery.scrollWidth - gallery.clientWidth;
+      document.querySelectorAll<HTMLButtonElement>('[data-gallery-direction]').forEach((button) => {
+        button.disabled =
+          Number(button.dataset.galleryDirection) < 0 ? gallery.scrollLeft <= 2 : gallery.scrollLeft >= max - 2;
+      });
+    };
+    gallery?.addEventListener('scroll', syncGalleryControls, { passive: true, signal });
+    window.addEventListener(
+      'resize',
+      () => {
+        syncGalleryControls();
+      },
+      { signal, passive: true }
+    );
+    syncGalleryControls();
+
+    document.fonts.ready.then(() => {
+      if (!signal.aborted) syncGalleryControls();
+    });
+  });
+</script>
